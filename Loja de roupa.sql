@@ -122,7 +122,7 @@ SELECT
 
 /* Entradas de mais produtos no estoques */      
 UPDATE ControleEstoqueLojaDeRoupa.entradas_estoque
-    SET quantidade = 60
+    SET quantidade = 75
     WHERE id_entrada IN (2, 3, 4, 6, 7, 9);
     
 /* Atualização dos estoques após entrada de produtos */      
