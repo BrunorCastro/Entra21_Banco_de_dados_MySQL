@@ -41,16 +41,16 @@ CREATE TABLE SAIDAS_ESTOQUE (
 );
 
 /* Entradas de produtos */
-INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Camiseta Branca', 'Camiseta branca de algodão, tamanho M', 25.00);
-INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Calça Jeans', 'Calça jeans azul, tamanho 40', 75.00);
-INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Tênis Esportivo', 'Tênis esportivo para corrida, tamanho 42', 150.00);
-INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Relógio de Pulso', 'Relógio de pulso digital com alarme', 200.00);
-INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Mochila', 'Mochila resistente para notebook', 120.00);
-INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Fone de Ouvido', 'Fone de ouvido com cancelamento de ruído', 300.00);
-INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Livro "O Pequeno Príncipe"', 'Livro "O Pequeno Príncipe" - edição de luxo', 45.00);
-INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Garrafa Térmica', 'Garrafa térmica de 1L com tampa rosqueável', 35.00);
-INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Cadeira de Escritório', 'Cadeira de escritório com encosto ajustável', 350.00);
-INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Mouse sem Fio', 'Mouse sem fio com sensor óptico', 80.00);
+INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Camiseta Preta', 'Camiseta preta básica, algodão, tamanho M', 29.99);
+INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Calça Social', 'Calça social preta, tecido leve, tamanho 38', 59.99);
+INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Sapato Social', 'Sapato social de couro, preto, tamanho 42', 129.99);
+INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Blusa de Moletom', 'Blusa de moletom com capuz, cor cinza, tamanho L', 49.99);
+INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Vestido Floral', 'Vestido floral de verão, tecido leve, tamanho P', 79.99);
+INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Óculos de Sol', 'Óculos de sol modernos, armação preta', 89.99);
+INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Bolsa de Couro', 'Bolsa de couro marrom, design elegante', 99.99);
+INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Jaqueta Jeans', 'Jaqueta jeans clássica, lavagem azul, tamanho M', 69.99);
+INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Sapato Casual', 'Sapato casual de camurça, cor marrom, tamanho 40', 79.99);
+INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Saia Midi', 'Saia midi estampada, tecido fluido, tamanho M', 39.99);
 
 /* Entradas de produtos no estoque, 21/11/2023 */
 INSERT INTO ENTRADAS_ESTOQUE (id_produto, quantidade, data_entrada) VALUES ('1', 100, '2023-11-21');
@@ -76,70 +76,62 @@ INSERT INTO SAIDAS_ESTOQUE (id_produto, quantidade, data_saida) VALUES ('8', 10,
 INSERT INTO SAIDAS_ESTOQUE (id_produto, quantidade, data_saida) VALUES ('9', 7, '2023-11-22');
 INSERT INTO SAIDAS_ESTOQUE (id_produto, quantidade, data_saida) VALUES ('10', 9, '2023-11-22');
 
-/* Quantidade de produtos que entraram no estoque */
-SELECT id_produto, SUM(quantidade) as total_entradas
+/* Consultas para calcular entradas e saídas*/
+SELECT id_produto, SUM(quantidade) AS total_entradas
 FROM ControleEstoqueLojaDeRoupa.entradas_estoque
-GROUP BY id_entrada; 
+GROUP BY id_produto;
 
-/* Quantidade de produtos que saíram do estoque */
-SELECT id_produto, SUM(quantidade) as total_saidas
+SELECT id_produto, SUM(quantidade) AS total_saidas
 FROM ControleEstoqueLojaDeRoupa.saidas_estoque
-GROUP BY id_saidas; 
+GROUP BY id_produto;
 
-/* Quantidade de produtos que entraram no estoque identificados pelo nome*/
-SELECT P.id_produto, P.nome_produto, SUM(E.quantidade) as total_entradas
-FROM ControleEstoqueLojaDeRoupa.Produtos P
-JOIN ControleEstoqueLojaDeRoupa.Entradas_estoque E ON 
-P.id_produto = E.id_produto
-GROUP BY P.id_produto, P.nome_produto;
+/*Relatório do estoque*/
+SELECT P.id_produto, P.nome_produto, E.total_entradas, S.total_saidas,
+    (E.total_entradas - S.total_saidas) AS saldo_atual
+FROM ControleEstoqueLojaDeRoupa.PRODUTOS P
+LEFT JOIN (
+    SELECT id_produto, SUM(quantidade) AS total_entradas
+    FROM ENTRADAS_ESTOQUE
+    GROUP BY id_produto) E 
+    ON P.id_produto = E.id_produto
+LEFT JOIN (
+    SELECT id_produto, SUM(quantidade) AS total_saidas
+    FROM SAIDAS_ESTOQUE
+    GROUP BY id_produto) S 
+    ON P.id_produto = S.id_produto;
 
-/* Quantidade de produtos que saíram do estoque identificados pelo nome*/
-SELECT P.id_produto, P.nome_produto, SUM(S.quantidade) as total_saidas
-FROM ControleEstoqueLojaDeRoupa.Produtos P
-JOIN ControleEstoqueLojaDeRoupa.Saidas_estoque S ON 
-P.id_produto = S.id_produto
-GROUP BY P.id_produto, P.nome_produto;
+/* Atualização de entradas no estoque*/
+/* Update */
+UPDATE ENTRADAS_ESTOQUE
+SET quantidade = 75
+WHERE id_entrada IN (2, 3, 4, 6, 7, 9);
 
-/* Relatório do estoque, 21/11/2023 */
-SELECT
-	tbproduto.id_produto,
-    tbproduto.nome_produto,
-    tbentradas.total_entradas,
-    tbsaidas.total_saidas,
-    (tbentradas.total_entradas) - (tbsaidas.total_saidas) as saldo_atual
+/*Insert*/
+INSERT INTO PRODUTOS (nome_produto, descricao, preco_unitario) VALUES ('Suéter de Tricô', 'Suéter de tricô quente, cor cinza, tamanho G', 79.99);
+
+/* Delete */
+DELETE FROM PRODUTOS WHERE id_produto = 11 ;
+
+/* Operações de entrada */
+SELECT * FROM ENTRADAS_ESTOQUE WHERE data_entrada BETWEEN '2023-11-21' AND '2023-11-22';
+
+/*Consulta após a atualização*/
+SELECT P.id_produto, P.nome_produto, E.total_entradas, S.total_saidas, 
+(E.total_entradas - S.total_saidas) AS saldo_atual
+FROM ControleEstoqueLojaDeRoupa.PRODUTOS P
+LEFT JOIN (
+    SELECT id_produto, SUM(quantidade) AS total_entradas
+    FROM ENTRADAS_ESTOQUE
+    GROUP BY id_produto) E 
+    ON P.id_produto = E.id_produto
+
+LEFT JOIN (
+    SELECT id_produto, SUM(quantidade) AS total_saidas
+    FROM SAIDAS_ESTOQUE
+    GROUP BY id_produto) S 
+    ON P.id_produto = S.id_produto;
     
-    /* Informações da tabela da esquerda */
-    FROM ControleEstoqueLojaDeRoupa.produtos tbproduto
-    INNER JOIN (SELECT id_produto, SUM(quantidade) as total_entradas
-		FROM ControleEstoqueLojaDeRoupa.entradas_estoque
-		GROUP BY id_produto) tbentradas
-        ON tbproduto.id_produto = tbentradas.id_produto
-	
-    INNER JOIN (SELECT id_produto, SUM(quantidade) as total_saidas
-		FROM ControleEstoqueLojaDeRoupa.saidas_estoque
-		GROUP BY id_produto) tbsaidas
-        ON tbproduto.id_produto = tbsaidas.id_produto; 
 
-/* Entradas de mais produtos no estoques */      
-UPDATE ControleEstoqueLojaDeRoupa.entradas_estoque
-    SET quantidade = 75
-    WHERE id_entrada IN (2, 3, 4, 6, 7, 9);
-    
-/* Atualização dos estoques após entrada de produtos */      
-SELECT
-	tbproduto.id_produto,
-    tbproduto.nome_produto,
-    tbentradas.total_entradas,
-    tbsaidas.total_saidas,
-    (tbentradas.total_entradas) - (tbsaidas.total_saidas) as saldo_atual
-    
-    /* Informações da tabela da esquerda */
-    FROM ControleEstoqueLojaDeRoupa.produtos tbproduto
-    INNER JOIN (SELECT id_produto, SUM(quantidade) as total_entradas
-		FROM ControleEstoqueLojaDeRoupa.entradas_estoque
-		GROUP BY id_produto) tbentradas
-        ON tbproduto.id_produto = tbentradas.id_produto
-        
 	INNER JOIN (SELECT id_produto, SUM(quantidade) as total_saidas
 		FROM ControleEstoqueLojaDeRoupa.saidas_estoque
 		GROUP BY id_produto) tbsaidas
