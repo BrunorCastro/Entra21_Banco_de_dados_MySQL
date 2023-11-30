@@ -42,5 +42,38 @@ Operações de entrada
 
 <img width="957" alt="todos os produtos" src="https://github.com/BrunorCastro/Entra21_Banco_de_dados_MySQL/assets/130259811/2c7594ce-6f39-4946-b986-c2642db8f9f6">
 
+Estrutura do Banco de Dados
+
+Tabela PRODUTOS:
+id_produto: Identificador único do produto.
+nome_produto: Nome do produto.
+descricao: Descrição detalhada do produto.
+preco_unitario: Preço unitário do produto.
+
+Tabela ENTRADAS_ESTOQUE:
+id_entrada: Identificador único de entrada em estoque.
+id_produto: Referência ao produto associado.
+quantidade: Quantidade de produtos que entraram em estoque.
+data_entrada: Dados de entrada em estoque.
+
+Tabela SAIDAS_ESTOQUE:
+id_saida: Identificador único de saída do estoque.
+id_produto: Referência ao produto associado.
+quantidade: Quantidade de produtos que saíram do estoque.
+data_saida: Dados da saída de estoque.
+
+Consultas SELECT:
+
+As consultas SELECT permitiu analisar as entradas e saídas. foi utilizado para ver dados atualizados e consultar calculos de saida e entrada.
+
+Desafios:
+
+Atualizar a entradas no estoque, no inicio so conseguia atualizar uma entrada por vez, depois descubri como atualizar varias entradas com o comando UPDATE, permitindo atualizar a quantidade de produtos.
+
+A exclusão de produtos foi um desafio grande, não conseguia apagar o item desejado, ate entender o funcionamento do comando DELETE, depois a exclusão de produtos foi realizada tranquilamente, mantendo a consistência e integridade dos dados.
+
+Conclusão geral:
+
+O controle de estoque é muito importante para o fundamental de qualquer empreendimento, e a utilização do banco de dados mostrou o quanto importante implementar e gerenciar esse controle de estoque.Um sistema bem modelado permite que qualquer empreendimento mantenha registros atualizado e funcionando perfeitamente, facilitando a tomada de decisões e garantindo uma gestão eficiente do estoque.
 
 
