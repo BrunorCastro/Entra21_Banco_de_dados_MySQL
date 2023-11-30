@@ -13,21 +13,41 @@ Criando tabelas (Produtos, Entradas de estoque e Saidas de estoque).
 
 <img width="960" alt="criando tabelas" src="https://github.com/BrunorCastro/Entra21_Banco_de_dados_MySQL/assets/130259811/e3154821-fc02-47f5-9dd0-6fb3a12fa0f3">
 
-Executando comando INSERT para adicionar 1 produtos.
+Executando comanso INSERT para adicionar produtos, entradas e saidas.
+
+Produtos
+
+<img width="959" alt="Inserindo produtos" src="https://github.com/BrunorCastro/Entra21_Banco_de_dados_MySQL/assets/130259811/5942b3ea-148b-4462-b5f4-ec505022cf48">
+
+Entradas
+
+<img width="960" alt="inserindo entradas " src="https://github.com/BrunorCastro/Entra21_Banco_de_dados_MySQL/assets/130259811/d608c984-45fb-4814-87b4-a9fc60ad7467">
+
+Saidas
+
+<img width="959" alt="inserindo saidas" src="https://github.com/BrunorCastro/Entra21_Banco_de_dados_MySQL/assets/130259811/399f8fd9-fd75-4e25-a4ff-8aa60ba45012">
+
+Executando comando INSERT para adicionar mais 1 produtos.
 
 <img width="960" alt="Adicionando item" src="https://github.com/BrunorCastro/Entra21_Banco_de_dados_MySQL/assets/130259811/1c13da57-e032-495c-b7a2-378444320270">
 
 Executando o comando DELETE para excluir o item adicionado.
-Normal
 
-<img width="957" alt="Captura de tela 2023-11-30 043740" src="https://github.com/BrunorCastro/Entra21_Banco_de_dados_MySQL/assets/130259811/af1ab932-66ab-4dc7-8f14-a9f62f1331c8">
-Atualizada
+<img width="960" alt="delete" src="https://github.com/BrunorCastro/Entra21_Banco_de_dados_MySQL/assets/130259811/2df7aaaf-f555-45a0-8ea9-695d24f6c095">
+
+UPDATE das quantidades existente no estoque, expecificando pelo id_entradas.
+
 <img width="960" alt="atualizado" src="https://github.com/BrunorCastro/Entra21_Banco_de_dados_MySQL/assets/130259811/0a8e6f31-b290-478f-8bfd-be87f06c7661">
 
 "SELECT"
 Consultas para calcular saida e entrada
 
+SAIDA
+
 <img width="960" alt="Select calculo" src="https://github.com/BrunorCastro/Entra21_Banco_de_dados_MySQL/assets/130259811/3aeab60d-5175-40cc-a620-c3834ab6277f">
+
+ENTRADA
+
 <img width="960" alt="entrada" src="https://github.com/BrunorCastro/Entra21_Banco_de_dados_MySQL/assets/130259811/582bcca4-d6f0-461e-834a-fd86f331828e">
 
 Consulta após atualização de dados
@@ -40,8 +60,7 @@ Selecionar todos os produtos em estoque
 
 Operações de entrada
 
-<img width="957" alt="todos os produtos" src="https://github.com/BrunorCastro/Entra21_Banco_de_dados_MySQL/assets/130259811/2c7594ce-6f39-4946-b986-c2642db8f9f6">
-
+<img width="960" alt="operador" src="https://github.com/BrunorCastro/Entra21_Banco_de_dados_MySQL/assets/130259811/6993787f-1cac-42fa-a354-d69cfe9b6323">
 
 Estrutura do Banco de Dados
 _________________________________________________________________________________________________________
