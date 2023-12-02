@@ -1,4 +1,4 @@
-ENTRA21 - MySQL (banco de dados) Loja de Roupa
+# ENTRA21 - MySQL (banco de dados) Loja de Roupa
 _________________________________________________________
 
 Criação do banco de dados (controleEstoqueLojaDeRoupa).
